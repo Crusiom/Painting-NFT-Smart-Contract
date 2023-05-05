@@ -20,12 +20,12 @@ contract PaintingNFTContract is ERC721("DAppFi", "DAPP"), Ownable {
     );
 
     event ListedEvent(
-        // uint256 indexed tokenId,
-        // address indexed seller,
-        // uint256 price
+        uint256 indexed tokenId,
+        address indexed seller,
+        uint256 price
     );
     event CancelListedEvent(
-        // uint256 indexed tokenId
+        uint256 indexed tokenId
     );
 
     address public operator;
@@ -50,7 +50,7 @@ contract PaintingNFTContract is ERC721("DAppFi", "DAPP"), Ownable {
         );
         paintings[_tokenId].price = _price;
         _transfer(msg.sender, address(this), _tokenId);
-        emit ListedEvent();
+        emit ListedEvent(_tokenId, msg.sender, _price);
     }
 
     function cancelListNFT(uint256 _tokenId) external payable {
@@ -60,7 +60,7 @@ contract PaintingNFTContract is ERC721("DAppFi", "DAPP"), Ownable {
             "Cancel listed NFT Failed: It is NOT your NFT"  
         );
         _transfer(address(this), msg.sender, _tokenId);
-        emit CancelListedEvent();
+        emit CancelListedEvent(_tokenId);
     }
 
     function buyNFT(uint256 _tokenId) external payable {

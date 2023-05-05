@@ -1,5 +1,5 @@
 {
-  "name": "painting_nft",
+  "name": "music_nfts",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -13,7 +13,7 @@
     "bootstrap": "^5.1.3",
     "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.7.2",
+    "ethers": "^5.5.4",
     "hardhat": "^2.8.4",
     "identicon.js": "^2.3.3",
     "react": "^17.0.2",
@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "npx hardhat run src/scripts/deploy.js --network localhost",
+    "deploy": "npx hardhat run src/backend/scripts/deploy.js --network localhost",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
