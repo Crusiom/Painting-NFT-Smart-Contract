@@ -65,7 +65,7 @@ describe("PaintingNFTContract", function () {
         const balanceOfUser1 = await user1.getBalance()
         const balanceOfOperator = await operator.getBalance()
 
-        await paintingNFTContract.connect(user2).buyNFT(0, {value: total})
+        await paintingNFTContract.connect(user2).buyNFT(0, NFTprice, { value: total });
 
         const finalBalanceOfOperator = await operator.getBalance()
         const finalBalanceOfUser1 = await user1.getBalance()
@@ -83,11 +83,13 @@ describe("PaintingNFTContract", function () {
       await paintingNFTContract.connect(user1).listNFT(0, NFTprice)
       let listPaintings = [0]
       const unsoldPaintings = await paintingNFTContract.getUnsoldNFT()
-      const user1Paintings = await paintingNFTContract.connect(user1).getMyNFT()
+      const user1Paintings = await paintingNFTContract.connect(user1).getMyNotListedNFT()
       const user2Paintings = await paintingNFTContract.connect(user2).getMyNFT()
+      const user3Paintings = await paintingNFTContract.connect(user1).getMyListedNFT()
       expect(unsoldPaintings.every(i => listPaintings.includes(i.tokenId.toNumber()))).to.equal(true)
       expect(user1Paintings.every(i => listPaintings.includes(i.tokenId.toNumber()))).to.equal(true)
       expect(user2Paintings.every(i => !listPaintings.some(j => j === i.tokenId.toNumber()))).to.equal(true)
+      expect(user3Paintings.every(i => !listPaintings.some(j => j === i.tokenId.toNumber()))).to.equal(false)
     });
     
   })
