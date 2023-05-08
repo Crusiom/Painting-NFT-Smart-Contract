@@ -43,7 +43,7 @@ const CreateNFT = ({ contract }) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Button variant="primary" onClick={createNewNFT} disabled={loading}>
+        <Button variant="secondary" onClick={createNewNFT} disabled={loading}>
           {loading ? 'Creating NFT...' : 'Create NFT'}
         </Button>
       </Form>

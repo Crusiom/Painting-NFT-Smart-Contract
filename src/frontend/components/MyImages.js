@@ -15,9 +15,8 @@ const MyImages = ({ contract }) => {
         console.error('Error fetching my NFTs:', error);
       }
     };
-    
+
     fetchMyNFTs();
-    
   }, [contract]);
 
   const handlePriceChange = (event, tokenId) => {
@@ -28,12 +27,12 @@ const MyImages = ({ contract }) => {
 
   const resellNFT = async (tokenId) => {
     const price = prices[tokenId];
-  
+
     if (!price || isNaN(price)) {
       alert('Please enter a valid price.');
       return;
     }
-  
+
     try {
       const priceInWei = ethers.utils.parseEther(price);
       const tx = await contract.listNFT(tokenId, priceInWei);
@@ -47,32 +46,36 @@ const MyImages = ({ contract }) => {
 
   return (
     <div className="container mt-5">
-      <Row>
-        {myNFTs.map((nft) => (
-          <Col key={nft.tokenId.toString()} md={4} className="mb-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={nft.URI} />
-              <Card.Body>
-                <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
-                <Card.Text>Owner: {nft.owner}</Card.Text>
-                <FormControl
-                  type="number"
-                  placeholder="Enter resale price"
-                  value={prices[nft.tokenId] || ''}
-                  onChange={(event) => handlePriceChange(event, nft.tokenId)}
-                />
-                <Button
-                  variant="primary"
-                  className="mt-2"
-                  onClick={() => resellNFT(nft.tokenId)}
-                >
-                  Resell NFT
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {myNFTs.length === 0 ? (
+        <h3>No images</h3>
+      ) : (
+        <Row>
+          {myNFTs.map((nft) => (
+            <Col key={nft.tokenId.toString()} md={4} className="mb-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={nft.URI} />
+                <Card.Body>
+                  <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
+                  <Card.Text>Owner: {nft.owner}</Card.Text>
+                  <FormControl
+                    type="number"
+                    placeholder="Enter resale price"
+                    value={prices[nft.tokenId] || ''}
+                    onChange={(event) => handlePriceChange(event, nft.tokenId)}
+                  />
+                  <Button
+                    variant="secondary"
+                    className="mt-2"
+                    onClick={() => resellNFT(nft.tokenId)}
+                  >
+                    Sell NFT
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </div>
   );
 };

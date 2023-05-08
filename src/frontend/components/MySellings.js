@@ -32,21 +32,25 @@ const MySellings = ({ contract }) => {
 
   return (
     <div className="container mt-5">
-      <Row>
-        {myListedNFTs.map((nft) => (
-          <Col key={nft.tokenId.toString()} md={4} className="mb-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={nft.URI} />
-              <Card.Body>
-                <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
-                <Card.Text>Owner: {nft.owner}</Card.Text>
-                <Card.Text>Price: {ethers.utils.formatEther(nft.price)} ETH</Card.Text>
-                <Button variant="primary" onClick={() => cancelSellNFT(nft.tokenId)}>Cancel Sell</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {myListedNFTs.length === 0 ? (
+        <h3>No images on selling</h3>
+      ) : (
+        <Row>
+          {myListedNFTs.map((nft) => (
+            <Col key={nft.tokenId.toString()} md={4} className="mb-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={nft.URI} />
+                <Card.Body>
+                  <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
+                  <Card.Text>Owner: {nft.owner}</Card.Text>
+                  <Card.Text>Price: {ethers.utils.formatEther(nft.price)} ETH</Card.Text>
+                  <Button variant="secondary" onClick={() => cancelSellNFT(nft.tokenId)}>Cancel Sell</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </div>
   );
 };

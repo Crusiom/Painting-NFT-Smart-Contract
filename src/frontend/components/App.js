@@ -13,7 +13,6 @@ import Home from './Home.js'
 import CreateNFT from './CreateNFT';
 import MyImages from './MyImages'
 import MySellings from './MySellings'
-import './App.css';
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -23,14 +22,12 @@ function App() {
   const web3Handler = async () => {
     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
     setAccount(accounts[0])
-    // Get provider from Metamask
+
     const provider = new ethers.providers.Web3Provider(window.ethereum)
-    // Get signer
     const signer = provider.getSigner()
     loadContract(signer)
   }
   const loadContract = async (signer) => {
-    // Get deployed copy of image nft marketplace contract
     const contract = new ethers.Contract(ImageNFTMarketplaceAddress.address, ImageNFTMarketplaceAbi.abi, signer)
     setContract(contract)
     setLoading(false)
@@ -39,7 +36,7 @@ function App() {
     <BrowserRouter>
       <div className="App">
         <>
-          <Navbar expand="lg" bg="secondary" variant="dark">
+          <Navbar expand="lg" bg="dark" variant="dark">
             <Container>
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">

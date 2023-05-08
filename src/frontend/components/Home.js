@@ -45,22 +45,26 @@ const Home = ({ contract, account }) => {
 
   return (
     <div className="container mt-5">
-      <Row>
-        {unsoldNFTs.map((nft) => (
-          <Col key={nft.tokenId.toString()} md={4} className="mb-3">
-            <Card style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={nft.URI} />
-              <Card.Body>
-                <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
-                <Card.Text>Price: {nft.price} ETH</Card.Text>
-                <Button variant="primary" onClick={() => buyNFT(nft.tokenId, nft.price)}>
-                  Buy NFT
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      {unsoldNFTs.length === 0 ? (
+        <h3>No images you can buy</h3>
+      ) : (
+        <Row>
+          {unsoldNFTs.map((nft) => (
+            <Col key={nft.tokenId.toString()} md={4} className="mb-3">
+              <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={nft.URI} />
+                <Card.Body>
+                  <Card.Title>Token ID: {nft.tokenId.toString()}</Card.Title>
+                  <Card.Text>Price: {nft.price} ETH</Card.Text>
+                  <Button variant="secondary" onClick={() => buyNFT(nft.tokenId, nft.price)}>
+                    Buy NFT
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      )}
     </div>
   );
 };
